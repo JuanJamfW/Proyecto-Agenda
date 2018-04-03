@@ -1,0 +1,49 @@
+h1,h2,h3 {
+    color: #015287;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    background-color: #94C5EB;
+}
+.titulo {
+    border: 2px solid #172322;
+    padding: 1em;
+    margin: 1em 0 1em 4em;
+    width: 300px;
+    background-color: #aabcfe;
+}
+.subtitulo {
+    border: 2px solid #172322;
+    padding: 1em;
+    margin: 1em 0 1em 4em;
+    width: 300px;
+    background-color: #aabcfe;
+}
+.tarea {
+    border: 2px solid #172322;
+    padding: 1em;
+    margin: 1em 0 1em 4em;
+    width: 300px;
+    background-color: #aabcfe;
+}
+.descripcion {
+    border: 2px solid #172322;
+    padding: 1em;
+    background-color: #aabcfe;
+}
+.fecha {
+    border: 2px solid #172322;
+    padding: 1em;
+    background-color: #aabcfe;
+}
+.prioridad {
+    border: 2px solid #172322;
+    padding: 1em;
+    background-color: #aabcfe;
+}
+.boton {
+    border: 2px solid #172322;
+    padding: 1em;
+    background-color: #aabcfe;
+}
