@@ -3,7 +3,7 @@
 $dbHost = 'localhost';
 $dbUsername = 'root';
 $dbPassword = '';
-$dbName = 'tienda';
+$dbName = 'citas';
 
 //Conexión a la base de datos
 $db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
