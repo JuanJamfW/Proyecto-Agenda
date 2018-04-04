@@ -47,3 +47,44 @@ include 'dbConfig.php';
 <br>
 </body>
 </html>
+
+<?php
+
+$query = $db->query("SELECT * FROM tareas");
+if($query->num_rows > 0){
+    while($row = $query->fetch_assoc()) {
+        if ($row['prioridad'] == "Alta") {
+            $back = "red";
+        } elseif ($row['prioridad'] == "Media") {
+            $back = "green";
+        } else {
+            $back = "blue";
+        }
+    }
+}
+?>
+<table border='1px solid black' bgcolor='$back'>;
+    <tr>
+        <th>Descripcion</th>
+        <th>Fecha</th>
+        <th>Marcar como completada</th>
+    </tr>
+    <tr>
+        <td>
+            <?php $row['descripcion'] ?>
+            <br>
+        </td>
+        <td>
+            <?php $row['fecha'] ?>
+            <br>
+        </td>
+        <td>
+            <form action='BorrarTarea.php' method='post'>
+            <input type='submit' value="<?php $row['id']?>" name='id'>
+            </form>
+        </td>
+    </tr>
+</table>
+<?php
+$db->close();
+?>
