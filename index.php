@@ -1,8 +1,3 @@
-<?php
-// Configuración de la base de datos
-include 'dbConfig.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +11,7 @@ include 'dbConfig.php';
 <div class="titulo"><h1>Lista de tareas a realizar</h1></div>
 <div class="subtitulo"><h2>Añadir nueva tarea</h2></div>
     <div class="tarea">
-        <form action="" method="post">
+        <form action="AñadirTarea.php" method="post">
 
             <div class="descripcion">Descripcion:
                 <br>
@@ -49,42 +44,49 @@ include 'dbConfig.php';
 </html>
 
 <?php
-
-$query = $db->query("SELECT * FROM tareas");
-if($query->num_rows > 0){
-    while($row = $query->fetch_assoc()) {
-        if ($row['prioridad'] == "Alta") {
-            $back = "red";
-        } elseif ($row['prioridad'] == "Media") {
-            $back = "green";
-        } else {
-            $back = "blue";
-        }
+class MyBD extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('Task.db');
     }
 }
-?>
-<table border='1px solid black' bgcolor='$back'>;
-    <tr>
-        <th>Descripcion</th>
-        <th>Fecha</th>
-        <th>Marcar como completada</th>
-    </tr>
-    <tr>
-        <td>
-            <?php $row['descripcion'] ?>
-            <br>
-        </td>
-        <td>
-            <?php $row['fecha'] ?>
-            <br>
-        </td>
-        <td>
-            <form action='BorrarTarea.php' method='post'>
-            <input type='submit' value="<?php $row['id']?>" name='id'>
-            </form>
-        </td>
-    </tr>
-</table>
-<?php
-$db->close();
+
+$bd = new MyBD();
+if(!$bd){
+    echo $bd->lastErrorMsg();
+} else {}
+
+$ret = $bd->query("SELECT * FROM tareas");
+while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
+    if ($row['prioridad'] == "Alta"){
+        $back = "red";
+    } elseif ($row['prioridad'] == "Media"){
+        $back = "green";
+    } else {
+        $back = "blue";
+    }
+
+    echo "<table border='1px solid black' bgcolor='$back'>";
+    echo "<tr>";
+    echo "<th>Descripcion</th>";
+    echo "<th>Fecha</th>";
+    echo "<th>Marcar como completada</th>";
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td>";
+    echo $row['descripcion']."<br>";
+    echo "</td>";
+    echo "<td>";
+    echo $row['fecha']."<br>";
+    echo "</td>";
+    echo "<td>";
+    echo "<form action='BorrarTarea.php' method='post'>";
+    echo "<input type='submit' value=".$row['id']." name='id'>";
+    echo "</form>";
+    echo "</td>";
+    echo "</tr>";
+    echo "</table>";
+}
+$bd->close();
 ?>

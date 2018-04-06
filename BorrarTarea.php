@@ -1,12 +1,21 @@
 <?php
 $id = $_POST['id'];
-include 'dbConfig.php';
 
-if(!$db){
-    echo $db->lastErrorMsg();
-} else {
-    $query = $db->query("DELETE FROM tareas WHERE id='$id'");
+class MyBD extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('Task.db');
+    }
 }
+
+$bd = new MyBD();
+if(!$bd){
+    echo $bd->lastErrorMsg();
+} else {
+    $bd->query("DELETE FROM tareas WHERE id='$id'");
+}
+?>
 ?>
 <html>
 <h1>Tarea Eliminada</h1>
