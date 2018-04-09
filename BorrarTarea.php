@@ -1,12 +1,11 @@
 <?php
 $id = $_POST['id'];
-include 'dbConfig.php';
 
-if(!$db){
-    echo $db->lastErrorMsg();
-} else {
-    $query = $db->query("DELETE FROM tareas WHERE id='$id'");
-}
+include("dbconfig.php");
+$link = Conectarse();
+
+$result = mysql_query("DELETE FROM tareas WHERE id='$id'", $link);
+
 ?>
 <html>
 <h1>Tarea Eliminada</h1>
