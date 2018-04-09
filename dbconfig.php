@@ -1,14 +1,16 @@
 <?php
-//DB detalles
-$dbHost = 'localhost';
-$dbUsername = 'root';
-$dbPassword = '';
-$dbName = 'citas';
-
-//Conexión a la base de datos
-$db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
-
-if ($db->connect_error) {
-    die("Unable to connect database: " . $db->connect_error);
+function Conectarse()
+{
+   if (!($link=mysql_connect("localhost","root","")))
+   {
+      echo "Error conectando a la base de datos.";
+      exit();
+   }
+   if (!mysql_select_db("citas",$link))
+   {
+      echo "Error seleccionando la base de datos.";
+      exit();
+   }
+   return $link;
 }
 ?>
