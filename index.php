@@ -9,7 +9,31 @@
 
 <body>
 <div class="titulo"><h1>Lista de tareas a realizar</h1></div>
-<div class="subtitulo"><h2>Añadir nueva tarea</h2></div>
+<div class="subtitulo">
+<?php
+include("dbconfig.php");
+$link = Conectarse();
+
+$result = mysql_query("SELECT * FROM tareas", $link);
+
+echo "<table>";
+echo "<tr>";
+echo "<th>Descripcion</th>";
+echo "<th>Fecha</th>";
+echo "<th>Prioridad</th>";
+echo "</tr>";
+while ($row = mysql_fetch_row($result)){
+    echo "<tr>";
+    echo "<td>".$row[1]."</td>";
+    echo "<td>".$row[2]."</td>";
+    echo "<td>".$row[3]."</td>";
+    echo "<td><form method='post' action='BorrarTarea.php'><input type='hidden' name='id' value='$row[0]'><input type='submit' value='Borrar'/></form></td>";
+    echo "</tr>";
+}
+echo "</table>";
+?>
+
+</div>
     <div class="tarea">
         <form action="AñadirTarea.php" method="post">
 
@@ -60,6 +84,7 @@ while ($row = mysql_fetch_row($result)){
     echo "<td>".$row[1]."</td>";
     echo "<td>".$row[2]."</td>";
     echo "<td>".$row[3]."</td>";
+    echo "<td><form method='post' action='BorrarTarea.php'><input type='hidden' name='id' value='$row[0]'><input type='submit' value='Borrar'/></form></td>";
     echo "</tr>";
 }
 echo "</table>";
